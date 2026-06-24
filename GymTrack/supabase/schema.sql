@@ -1,7 +1,7 @@
 -- ============================================
 -- GymTrack - Schema do Banco de Dados (Supabase)
 -- ============================================
--- Execute este script no SQL Editor do Supabase
+
 
 -- Tabela de exercícios (CRUD 1)
 create table exercises (

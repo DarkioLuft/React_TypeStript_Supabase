@@ -6,7 +6,6 @@ import { Platform } from 'react-native';
 // Memória temporária para ambientes Web onde o localStorage possa estar bloqueado
 const webMemoryStorage: Record<string, string> = {};
 
-// Adaptador Inteligente: Web usa localStorage / Mobile usa SecureStore
 const universalStorageAdapter = {
   getItem: async (key: string): Promise<string | null> => {
     if (Platform.OS === 'web') {
@@ -41,15 +40,15 @@ const universalStorageAdapter = {
   },
 };
 
-// Substitua pelas suas credenciais reais (ou use arquivos .env com EXPO_PUBLIC_)
-const SUPABASE_URL = 'https://husrgltlolzijrvixnlw.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_MeRV5Ndp13wjYr_MSuaxUA_rDbaB0d8';
+// Buscando os valores com segurança das variáveis de ambiente
+const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL || '';
+const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || '';
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: {
     storage: universalStorageAdapter,
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: false, // Mantido falso para evitar problemas de roteamento no Expo
+    detectSessionInUrl: false, 
   },
 });
